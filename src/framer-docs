@@ -1,0 +1,758 @@
+www.hover.dev/#encrypt-button
+www.hover.dev/components/navigation#flyout-navbar
+
+www.hover.dev/components/links#shifting-dropdown
+
+import React, { useEffect, useState } from "react";
+import {
+  FiArrowRight,
+  FiBarChart2,
+  FiChevronDown,
+  FiHome,
+  FiPieChart,
+} from "react-icons/fi";
+import { AnimatePresence, motion } from "framer-motion";
+
+export const ShiftingDropDown = () => {
+  return (
+    <div className="flex h-96 w-full justify-start bg-neutral-950 p-8 text-neutral-200 md:justify-center">
+      <Tabs />
+    </div>
+  );
+};
+
+const Tabs = () => {
+  const [selected, setSelected] = useState(null);
+  const [dir, setDir] = useState(null);
+
+  const handleSetSelected = (val) => {
+    if (typeof selected === "number" && typeof val === "number") {
+      setDir(selected > val ? "r" : "l");
+    } else if (val === null) {
+      setDir(null);
+    }
+
+    setSelected(val);
+  };
+
+  return (
+    <div
+      onMouseLeave={() => handleSetSelected(null)}
+      className="relative flex h-fit gap-2"
+    >
+      {TABS.map((t) => {
+        return (
+          <Tab
+            key={t.id}
+            selected={selected}
+            handleSetSelected={handleSetSelected}
+            tab={t.id}
+          >
+            {t.title}
+          </Tab>
+        );
+      })}
+
+      <AnimatePresence>
+        {selected && <Content dir={dir} selected={selected} />}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const Tab = ({ children, tab, handleSetSelected, selected }) => {
+  return (
+    <button
+      id={`shift-tab-${tab}`}
+      onMouseEnter={() => handleSetSelected(tab)}
+      onClick={() => handleSetSelected(tab)}
+      className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors ${
+        selected === tab
+          ? " bg-neutral-800 text-neutral-100"
+          : "text-neutral-400"
+      }`}
+    >
+      <span>{children}</span>
+      <FiChevronDown
+        className={`transition-transform ${
+          selected === tab ? "rotate-180" : ""
+        }`}
+      />
+    </button>
+  );
+};
+
+const Content = ({ selected, dir }) => {
+  return (
+    <motion.div
+      id="overlay-content"
+      initial={{
+        opacity: 0,
+        y: 8,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      exit={{
+        opacity: 0,
+        y: 8,
+      }}
+      className="absolute left-0 top-[calc(100%_+_24px)] w-96 rounded-lg border border-neutral-600 bg-gradient-to-b from-neutral-900 via-neutral-900 to-neutral-800 p-4"
+    >
+      <Bridge />
+      <Nub selected={selected} />
+
+      {TABS.map((t) => {
+        return (
+          <div className="overflow-hidden" key={t.id}>
+            {selected === t.id && (
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  x: dir === "l" ? 100 : dir === "r" ? -100 : 0,
+                }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+              >
+                <t.Component />
+              </motion.div>
+            )}
+          </div>
+        );
+      })}
+    </motion.div>
+  );
+};
+
+const Bridge = () => (
+  <div className="absolute -top-[24px] left-0 right-0 h-[24px]" />
+);
+
+const Nub = ({ selected }) => {
+  const [left, setLeft] = useState(0);
+
+  useEffect(() => {
+    moveNub();
+  }, [selected]);
+
+  const moveNub = () => {
+    if (selected) {
+      const hoveredTab = document.getElementById(`shift-tab-${selected}`);
+      const overlayContent = document.getElementById("overlay-content");
+
+      if (!hoveredTab || !overlayContent) return;
+
+      const tabRect = hoveredTab.getBoundingClientRect();
+      const { left: contentLeft } = overlayContent.getBoundingClientRect();
+
+      const tabCenter = tabRect.left + tabRect.width / 2 - contentLeft;
+
+      setLeft(tabCenter);
+    }
+  };
+
+  return (
+    <motion.span
+      style={{
+        clipPath: "polygon(0 0, 100% 0, 50% 50%, 0% 100%)",
+      }}
+      animate={{ left }}
+      transition={{ duration: 0.25, ease: "easeInOut" }}
+      className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-tl border border-neutral-600 bg-neutral-900"
+    />
+  );
+};
+
+const Products = () => {
+  return (
+    <div>
+      <div className="flex gap-4">
+        <div>
+          <h3 className="mb-2 text-sm font-medium">Startup</h3>
+          <a href="#" className="mb-1 block text-sm text-neutral-400">
+            Bookkeeping
+          </a>
+          <a href="#" className="block text-sm text-neutral-400">
+            Invoicing
+          </a>
+        </div>
+        <div>
+          <h3 className="mb-2 text-sm font-medium">Scaleup</h3>
+          <a href="#" className="mb-1 block text-sm text-neutral-400">
+            Live Coaching
+          </a>
+          <a href="#" className="mb-1 block text-sm text-neutral-400">
+            Reviews
+          </a>
+          <a href="#" className="block text-sm text-neutral-400">
+            Tax/VAT
+          </a>
+        </div>
+        <div>
+          <h3 className="mb-2 text-sm font-medium">Enterprise</h3>
+          <a href="#" className="mb-1 block text-sm text-neutral-400">
+            White glove
+          </a>
+          <a href="#" className="mb-1 block text-sm text-neutral-400">
+            SOX Compliance
+          </a>
+          <a href="#" className="block text-sm text-neutral-400">
+            Staffing
+          </a>
+          <a href="#" className="block text-sm text-neutral-400">
+            More
+          </a>
+        </div>
+      </div>
+
+      <button className="ml-auto mt-4 flex items-center gap-1 text-sm text-indigo-300">
+        <span>View more</span>
+        <FiArrowRight />
+      </button>
+    </div>
+  );
+};
+
+const Pricing = () => {
+  return (
+    <div className="grid grid-cols-3 gap-4 divide-x divide-neutral-700">
+      <a
+        href="#"
+        className="flex w-full flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
+      >
+        <FiHome className="mb-2 text-xl text-indigo-300" />
+        <span className="text-xs">Startup</span>
+      </a>
+      <a
+        href="#"
+        className="flex w-full flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
+      >
+        <FiBarChart2 className="mb-2 text-xl text-indigo-300" />
+        <span className="text-xs">Scaleup</span>
+      </a>
+      <a
+        href="#"
+        className="flex w-full flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
+      >
+        <FiPieChart className="mb-2 text-xl text-indigo-300" />
+        <span className="text-xs">Enterprise</span>
+      </a>
+    </div>
+  );
+};
+
+const Blog = () => {
+  return (
+    <div>
+      <div className="grid grid-cols-2 gap-2">
+        <a href="#">
+          <img
+            className="mb-2 h-14 w-full rounded object-cover"
+            src="/imgs/blog/4.png"
+            alt="Placeholder image"
+          />
+          <h4 className="mb-0.5 text-sm font-medium">Lorem ipsum dolor</h4>
+          <p className="text-xs text-neutral-400">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet illo
+            quidem eos.
+          </p>
+        </a>
+        <a href="#">
+          <img
+            className="mb-2 h-14 w-full rounded object-cover"
+            src="/imgs/blog/5.png"
+            alt="Placeholder image"
+          />
+          <h4 className="mb-0.5 text-sm font-medium">Lorem ipsum dolor</h4>
+          <p className="text-xs text-neutral-400">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet illo
+            quidem eos.
+          </p>
+        </a>
+      </div>
+      <button className="ml-auto mt-4 flex items-center gap-1 text-sm text-indigo-300">
+        <span>View more</span>
+        <FiArrowRight />
+      </button>
+    </div>
+  );
+};
+
+const TABS = [
+  {
+    title: "Products",
+    Component: Products,
+  },
+  {
+    title: "Pricing",
+    Component: Pricing,
+  },
+  {
+    title: "Blog",
+    Component: Blog,
+  },
+].map((n, idx) => ({ ...n, id: idx + 1 }));
+
+import { useMotionValue, motion, useSpring, useTransform } from "framer-motion";
+import React, { useRef } from "react";
+import { FiArrowRight } from "react-icons/fi";
+
+export const HoverImageLinks = () => {
+  return (
+    <section className="bg-neutral-950 p-4 md:p-8">
+      <div className="mx-auto max-w-5xl">
+        <Link
+          heading="About"
+          subheading="Learn what we do here"
+          imgSrc="/imgs/random/11.jpg"
+          href="#"
+        />
+        <Link
+          heading="Clients"
+          subheading="We work with great people"
+          imgSrc="/imgs/random/6.jpg"
+          href="#"
+        />
+        <Link
+          heading="Portfolio"
+          subheading="Our work speaks for itself"
+          imgSrc="/imgs/random/4.jpg"
+          href="#"
+        />
+        <Link
+          heading="Careers"
+          subheading="We want cool people"
+          imgSrc="/imgs/random/5.jpg"
+          href="#"
+        />
+        <Link
+          heading="Fun"
+          subheading="Incase you're bored"
+          imgSrc="/imgs/random/10.jpg"
+          href="#"
+        />
+      </div>
+    </section>
+  );
+};
+
+const Link = ({ heading, imgSrc, subheading, href }) => {
+  const ref = useRef(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const top = useTransform(mouseYSpring, [0.5, -0.5], ["40%", "60%"]);
+  const left = useTransform(mouseXSpring, [0.5, -0.5], ["60%", "70%"]);
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  return (
+    <motion.a
+      href={href}
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      initial="initial"
+      whileHover="whileHover"
+      className="group relative flex items-center justify-between border-b-2 border-neutral-700 py-4 transition-colors duration-500 hover:border-neutral-50 md:py-8"
+    >
+      <div>
+        <motion.span
+          variants={{
+            initial: { x: 0 },
+            whileHover: { x: -16 },
+          }}
+          transition={{
+            type: "spring",
+            staggerChildren: 0.075,
+            delayChildren: 0.25,
+          }}
+          className="relative z-10 block text-4xl font-bold text-neutral-500 transition-colors duration-500 group-hover:text-neutral-50 md:text-6xl"
+        >
+          {heading.split("").map((l, i) => (
+            <motion.span
+              variants={{
+                initial: { x: 0 },
+                whileHover: { x: 16 },
+              }}
+              transition={{ type: "spring" }}
+              className="inline-block"
+              key={i}
+            >
+              {l}
+            </motion.span>
+          ))}
+        </motion.span>
+        <span className="relative z-10 mt-2 block text-base text-neutral-500 transition-colors duration-500 group-hover:text-neutral-50">
+          {subheading}
+        </span>
+      </div>
+
+      <motion.img
+        style={{
+          top,
+          left,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        variants={{
+          initial: { scale: 0, rotate: "-12.5deg" },
+          whileHover: { scale: 1, rotate: "12.5deg" },
+        }}
+        transition={{ type: "spring" }}
+        src={imgSrc}
+        className="absolute z-0 h-24 w-32 rounded-lg object-cover md:h-48 md:w-64"
+        alt={`Image representing a link for ${heading}`}
+      />
+
+      <motion.div
+        variants={{
+          initial: {
+            x: "25%",
+            opacity: 0,
+          },
+          whileHover: {
+            x: "0%",
+            opacity: 1,
+          },
+        }}
+        transition={{ type: "spring" }}
+        className="relative z-10 p-4"
+      >
+        <FiArrowRight className="text-5xl text-neutral-50" />
+      </motion.div>
+    </motion.a>
+  );
+};
+
+import { motion } from "framer-motion";
+import { useState } from "react";
+
+const tabs = ["Home", "Search", "About", "FAQ"];
+
+const ChipTabs = () => {
+  const [selected, setSelected] = useState(tabs[0]);
+
+  return (
+    <div className="px-4 py-14 bg-slate-900 flex items-center flex-wrap gap-2">
+      {tabs.map((tab) => (
+        <Chip
+          text={tab}
+          selected={selected === tab}
+          setSelected={setSelected}
+          key={tab}
+        />
+      ))}
+    </div>
+  );
+};
+
+const Chip = ({
+  text,
+  selected,
+  setSelected,
+}) => {
+  return (
+    <button
+      onClick={() => setSelected(text)}
+      className={`${
+        selected
+          ? "text-white"
+          : "text-slate-300 hover:text-slate-200 hover:bg-slate-700"
+      } text-sm transition-colors px-2.5 py-0.5 rounded-md relative`}
+    >
+      <span className="relative z-10">{text}</span>
+      {selected && (
+        <motion.span
+          layoutId="pill-tab"
+          transition={{ type: "spring", duration: 0.5 }}
+          className="absolute inset-0 z-0 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-md"
+        ></motion.span>
+      )}
+    </button>
+  );
+};
+
+export default ChipTabs;
+
+//Modals
+import { AnimatePresence, motion } from "framer-motion";
+import { FiAlertCircle } from "react-icons/fi";
+import { useState } from "react";
+
+const ExampleWrapper = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="px-4 py-64 bg-slate-900 grid place-content-center">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
+      >
+        Open Modal
+      </button>
+      <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} />
+    </div>
+  );
+};
+
+const SpringModal = ({ isOpen, setIsOpen }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setIsOpen(false)}
+          className="bg-slate-900/20 backdrop-blur p-8 fixed inset-0 z-50 grid place-items-center overflow-y-scroll cursor-pointer"
+        >
+          <motion.div
+            initial={{ scale: 0, rotate: "12.5deg" }}
+            animate={{ scale: 1, rotate: "0deg" }}
+            exit={{ scale: 0, rotate: "0deg" }}
+            onClick={(e) => e.stopPropagation()}
+            className="bg-gradient-to-br from-violet-600 to-indigo-600 text-white p-6 rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden"
+          >
+            <FiAlertCircle className="text-white/10 rotate-12 text-[250px] absolute z-0 -top-24 -left-24" />
+            <div className="relative z-10">
+              <div className="bg-white w-16 h-16 mb-2 rounded-full text-3xl text-indigo-600 grid place-items-center mx-auto">
+                <FiAlertCircle />
+              </div>
+              <h3 className="text-3xl font-bold text-center mb-2">
+                One more thing!
+              </h3>
+              <p className="text-center mb-6">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Id
+                aperiam vitae, sapiente ducimus eveniet in velit.
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="bg-transparent hover:bg-white/10 transition-colors text-white font-semibold w-full py-2 rounded"
+                >
+                  Nah, go back
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="bg-white hover:opacity-90 transition-opacity text-indigo-600 font-semibold w-full py-2 rounded"
+                >
+                  Understood!
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default ExampleWrapper;
+
+//dropdown menu
+import {
+  FiEdit,
+  FiChevronDown,
+  FiTrash,
+  FiShare,
+  FiPlusSquare,
+} from "react-icons/fi";
+import { motion } from "framer-motion";
+import { Dispatch, SetStateAction, useState } from "react";
+import { IconType } from "react-icons";
+
+const StaggeredDropDown = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="p-8 pb-56 flex items-center justify-center bg-white">
+      <motion.div animate={open ? "open" : "closed"} className="relative">
+        <button
+          onClick={() => setOpen((pv) => !pv)}
+          className="flex items-center gap-2 px-3 py-2 rounded-md text-indigo-50 bg-indigo-500 hover:bg-indigo-500 transition-colors"
+        >
+          <span className="font-medium text-sm">Post actions</span>
+          <motion.span variants={iconVariants}>
+            <FiChevronDown />
+          </motion.span>
+        </button>
+
+        <motion.ul
+          initial={wrapperVariants.closed}
+          variants={wrapperVariants}
+          style={{ originY: "top", translateX: "-50%" }}
+          className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
+        >
+          <Option setOpen={setOpen} Icon={FiEdit} text="Edit" />
+          <Option setOpen={setOpen} Icon={FiPlusSquare} text="Duplicate" />
+          <Option setOpen={setOpen} Icon={FiShare} text="Share" />
+          <Option setOpen={setOpen} Icon={FiTrash} text="Remove" />
+        </motion.ul>
+      </motion.div>
+    </div>
+  );
+};
+
+const Option = ({ text, Icon, setOpen }) => {
+  return (
+    <motion.li
+      variants={itemVariants}
+      onClick={() => setOpen(false)}
+      className="flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-slate-700 hover:text-indigo-500 transition-colors cursor-pointer"
+    >
+      <motion.span variants={actionIconVariants}>
+        <Icon />
+      </motion.span>
+      <span>{text}</span>
+    </motion.li>
+  );
+};
+
+export default StaggeredDropDown;
+
+const wrapperVariants = {
+  open: {
+    scaleY: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.1,
+    },
+  },
+  closed: {
+    scaleY: 0,
+    transition: {
+      when: "afterChildren",
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const iconVariants = {
+  open: { rotate: 180 },
+  closed: { rotate: 0 },
+};
+
+const itemVariants = {
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      when: "beforeChildren",
+    },
+  },
+  closed: {
+    opacity: 0,
+    y: -15,
+    transition: {
+      when: "afterChildren",
+    },
+  },
+};
+
+const actionIconVariants = {
+  open: { scale: 1, y: 0 },
+  closed: { scale: 0, y: -7 },
+};
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
+const Example = () => {
+  return (
+    <div className="flex h-[500px] justify-center bg-neutral-900 px-3 py-12">
+      <FlyoutLink href="#" FlyoutContent={PricingContent}>
+        Pricing
+      </FlyoutLink>
+    </div>
+  );
+};
+
+const FlyoutLink = ({ children, href, FlyoutContent }) => {
+  const [open, setOpen] = useState(false);
+
+  const showFlyout = FlyoutContent && open;
+
+  return (
+    <div
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      className="relative w-fit h-fit"
+    >
+      <a href={href} className="relative text-white">
+        {children}
+        <span
+          style={{
+            transform: showFlyout ? "scaleX(1)" : "scaleX(0)",
+          }}
+          className="absolute -bottom-2 -left-2 -right-2 h-1 origin-left scale-x-0 rounded-full bg-indigo-300 transition-transform duration-300 ease-out"
+        />
+      </a>
+      <AnimatePresence>
+        {showFlyout && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 15 }}
+            style={{ translateX: "-50%" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="absolute left-1/2 top-12 bg-white text-black"
+          >
+            <div className="absolute -top-6 left-0 right-0 h-6 bg-transparent" />
+            <div className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-white" />
+            <FlyoutContent />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const PricingContent = () => {
+  return (
+    <div className="w-64 bg-white p-6 shadow-xl">
+      <div className="mb-3 space-y-3">
+        <h3 className="font-semibold">For Individuals</h3>
+        <a href="#" className="block text-sm hover:underline">
+          Introduction
+        </a>
+        <a href="#" className="block text-sm hover:underline">
+          Pay as you go
+        </a>
+      </div>
+      <div className="mb-6 space-y-3">
+        <h3 className="font-semibold">For Companies</h3>
+        <a href="#" className="block text-sm hover:underline">
+          Startups
+        </a>
+        <a href="#" className="block text-sm hover:underline">
+          SMBs
+        </a>
+        <a href="#" className="block text-sm hover:underline">
+          Enterprise
+        </a>
+      </div>
+      <button className="w-full rounded-lg border-2 border-neutral-950 px-4 py-2 font-semibold transition-colors hover:bg-neutral-950 hover:text-white">
+        Contact sales
+      </button>
+    </div>
+  );
+};
+
+export default Example;
