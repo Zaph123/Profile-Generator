@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"
     return (
      <header>
         <nav>
-     <Link to="/" className="link">Home</Link>
-     <Link to="/viewport" className="link">Viewport</Link>
+     {/* <Link to="/" className="link">Home</Link>
+     <Link to="/viewport" className="link">Viewport</Link> */}
      <Link to="/profiles" className="link">Profiles</Link>
      </nav>
      </header>

@@ -1,8 +1,10 @@
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Link } from "react-router-dom"
 import image from '../assets/empty.jpg'
-import { FaFacebook, FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa"
+import instagram from '../assets/instagram-logo1.png'
+import facebook from '../assets/facebook2.png'
+import { FaUpload, FaLinkedin, FaInstagram, FaWhatsapp, FaArrowLeft, FaTrash, FaEdit } from "react-icons/fa"
 
 import '../css/profilecard.css'
  
@@ -15,13 +17,19 @@ import '../css/profilecard.css'
       setDelete(true)
       window.localStorage.removeItem("Details")
     }
-
+    
+   
    return (
     <div className="profile-page">
     <div className="menu">
-      <div onClick={removeData} className="profile-link">Delete Card</div>
-      <div><Link to='/profiles' className="profile-link" >Back</Link></div>
-      {retreiveJSON && <div><Link to='/profiles/my-profile/profile-generator-card-edit' className="profile-link" >edit</Link></div>}
+      {retreiveJSON && 
+      (
+        <>
+          <div onClick={removeData} className="profile-link"><FaTrash /></div>
+          <div><Link to='/profiles/my-profile/profile-generator-card-edit' className="profile-link" ><FaEdit /></Link></div>
+        </>
+      )}
+    <div className="p-cont"><Link to='/profiles' className="profile-link" ><FaArrowLeft /></Link></div>
     </div>
     {
        retreiveJSON ?
@@ -34,15 +42,44 @@ import '../css/profilecard.css'
  
 
  const ClientsProfileCard = ({result}) => {
-    // const [image, setImage] = useState("")
+    const [src, setSrc] = useState(result[0].coverphoto)
     
+    const uploadedImage = useRef(null)
+    const imageUploader = useRef(null)
+
+    const handleImageupload = e => {
+       const [file] = e.target.files;
+       console.log(file)
+       if(file) {
+        const reader = new FileReader()
+        // const { current } = uploadedImage
+        // current.file = file
+        reader.onload = e => {
+          console.log(e)
+          // current.src = e.target.result
+          setSrc(e.target.result)
+        }
+        reader.readAsDataURL(file)
+       }
+       else{
+        console.log("unable")
+       }
+    }
+    
+
     return (
       <div className="profile-contnr">
              <motion.div
                  className='profile'
                  >
                <div className="image-cont">
-                 <img src={result[0].coverphoto} alt="profile-img" />
+                <div className="cover-photo">
+                  <div className="upload">
+                    <input ref={imageUploader} type="file" accept="image/*" onChange={handleImageupload}/>
+                  </div>
+                  <button className="upload-btn" onClick={() => imageUploader.current.click()}><FaUpload /></button>
+                 <img ref={uploadedImage} src={src} alt="profile-img" />
+                </div>
                  <div className="profile-img">
                     <img src={result[0].profileImg} alt="" />
                  </div>
@@ -59,13 +96,13 @@ import '../css/profilecard.css'
                    </div>  
                    <div className="col-2">
                     <span className="s-links">
-                      <a href={result[0].facebook}><FaFacebook /></a>
+                      <a href={result[0].facebook}><img src={facebook} alt="" /></a>
                     </span>  
                     <span className="s-links">
                       <a href={result[0].linkedIn}><FaLinkedin /></a>
                     </span> 
                     <span className="s-links">
-                      <a href={result[0].instagram}><FaInstagram /></a>
+                      <a href={result[0].instagram}><img src={instagram} alt="" /></a>
                     </span> 
                     <span className="s-links">
                       <a href={result[0].whatsapp}><FaWhatsapp /></a>
@@ -85,7 +122,15 @@ import '../css/profilecard.css'
                   </div>
            </motion.div>
           </motion.div>  
-      </div>
+
+          {// <div className="img-upload">
+          //   <input ref={imageUploader} type="file" accept="image/*" onChange={handleImageupload}/>
+          //   <div className="upload">
+          //     <img ref={uploadedImage} />
+          //   </div>
+          //   <button onClick={() => imageUploader.current.click()}>Upload</button>
+          // </div>
+}      </div>
     )
    }
 

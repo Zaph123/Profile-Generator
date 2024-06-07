@@ -289,8 +289,8 @@ const ProfileGeneratorEdit = () => {
           <MySkills handleKeyUp={handleTextareaKeyUp} err={err} spanref={spanRef} myRef={textareaRef} skill={addSkill}  handleSkill={handleSkillChange} addnewskill={addNewSkill} deleteskill={deleteSkill}/>
      </div>
      <div className="social-media-links">
-        <h1>Social Media Links</h1>
         <div className="row2">
+        <h1>Social Media Links</h1>
          <div className='input-bx'>
            <label htmlFor="facebook">Facebook: *</label>
           <input type="website" value={fblink} name='facebook' id='facebook' placeholder='https://www.facebook.com' onChange={fbChange}/>

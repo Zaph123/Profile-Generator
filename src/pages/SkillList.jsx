@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y, EffectCoverflow } from 'swiper/modules';
 import {  useState, createContext,} from 'react';
 import { Link } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -99,7 +100,7 @@ import 'swiper/css/effect-coverflow';
       <modalContext.Provider value={displayModal}>
       <div className='swiper-inner'>
         <div className="menu">
-          <Link to="/profiles/my-profile" className='profile-link'>My Profile</Link>
+          <Link to="/profiles/my-profile" className='profile-link'><FaUser /></Link>
         </div>
         <div className="hero">
           <h1>Profile Card generator</h1>

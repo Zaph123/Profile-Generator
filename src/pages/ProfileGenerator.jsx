@@ -165,9 +165,6 @@ const ProfileGenerator = ({closemodal, lsname, lsemail}) => {
           ]
           
           setItem(userDetails)
-          // const myJSON = JSON.stringify(userDetails)
-          // const JSONDetails = localStorage.setItem("Details", myJSON)
-       
           setClose(true)
 
         }
@@ -175,12 +172,6 @@ const ProfileGenerator = ({closemodal, lsname, lsemail}) => {
     }
     
     
-    // useEffect(() => {
-    //   // console.log(Date())
-    //   if(getDetails()){
-    //    console.log("clicked")
-    //   }
-    // }, [getDetails])
 
     const sampleImages = [
       {
@@ -283,8 +274,8 @@ const ProfileGenerator = ({closemodal, lsname, lsemail}) => {
           <MySkills handleKeyUp={handleTextareaKeyUp} err={err} spanref={spanRef} myRef={textareaRef} skill={addSkill}  handleSkill={handleSkillChange} addnewskill={addNewSkill} deleteskill={deleteSkill}/>
      </div>
      <div className="social-media-links">
-        <h1>Social Media Links</h1>
         <div className="row2">
+        <h1>Social Media Links</h1>
          <div className='input-bx'>
            <label htmlFor="facebook">Facebook: *</label>
           <input type="text" name='facebook' id='facebook' placeholder='https://www.facebook.com' onChange={fbChange}/>
