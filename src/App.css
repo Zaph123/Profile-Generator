@@ -1,11 +1,11 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins&family=Young+Serif&display=swap');
 
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: poppins;
+    font-family: Poppins;
 }
  #root {
     width: 100%;
