@@ -342,7 +342,7 @@ const ProfileGeneratorEdit = () => {
           <h1 className='poster-name'>My profile</h1>
           <div className={`menu-link ${active ? "active" : ""}`}>
             <FaTimes className="fa-times" onClick={closeMenu}/>
-          <motion.div whileTap={{scale: .95}}><Link to="/profiles/my-profile" className='profile-link'>Back</Link></motion.div>
+          <motion.div whileTap={{scale: .95}}><Link to="/my-profile" className='profile-link'>Back</Link></motion.div>
           {/* <motion.div whileTap={{scale: .95}}><Link to="/profiles/my-profile" className='profile-link'>My Cards</Link></motion.div> */}
           </div>
           <HamburgerMenu toggle={toggle} active={active}/>

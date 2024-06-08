@@ -53,18 +53,18 @@ function App() {
   <Router basename='/Profile-Generator'>
   <Header />
   <Routes>
-    <Route path='/' element={<Home />} >
+    <Route path='/home' element={<Home />} >
     <Route index element={<SelfIntro />} />
-    <Route path="/question" element={<Question />} />
-    <Route path="/swiper" element={<SwiperComponent />} />
+    <Route path="/home/question" element={<Question />} />
+    <Route path="/home/swiper" element={<SwiperComponent />} />
     </Route>
-    <Route path='/profiles' element={<Profiles />}>
+    <Route path='/' element={<Profiles />}>
       <Route index element={<SkillList />} />
-      <Route path='/profiles/my-profile' element={<ProfileCard />}>
+      <Route path='/my-profile' element={<ProfileCard />}>
       <Route index element={<ProfileCardHome />} />
-      <Route path='/profiles/my-profile/profile-generator-card-edit' element={<ProfileGeneratorEdit />}/>
+      <Route path='/my-profile/profile-generator-card-edit' element={<ProfileGeneratorEdit />}/>
       </Route>  
-      <Route path='/profiles/profile-generator' element={<ProfileGenerator />} />
+      <Route path='/profile-generator' element={<ProfileGenerator />} />
     </Route>
     <Route path='/viewport' element={<Viewport />}/>
    </Routes>

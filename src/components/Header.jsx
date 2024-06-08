@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
         <nav>
      {/* <Link to="/" className="link">Home</Link>
      <Link to="/viewport" className="link">Viewport</Link> */}
-     <Link to="/profiles" className="link">Profiles</Link>
+     <Link to="/" className="link">Profiles</Link>
      </nav>
      </header>
     )

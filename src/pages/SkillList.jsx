@@ -100,12 +100,12 @@ import 'swiper/css/effect-coverflow';
       <modalContext.Provider value={displayModal}>
       <div className='swiper-inner'>
         <div className="menu">
-          <Link to="/profiles/my-profile" className='profile-link'><FaUser /></Link>
+          <Link to="/my-profile" className='profile-link'><FaUser /></Link>
         </div>
         <div className="hero">
           <h1>Profile Card generator</h1>
           <div className="btns">
-          <GenerateBtn><Link className='a' to='/profiles/profile-generator'>Generate profile card</Link></GenerateBtn>
+          <GenerateBtn><Link className='a' to='/profile-generator'>Generate profile card</Link></GenerateBtn>
           <GenerateBtn><Link className='a'>Generate from template</Link></GenerateBtn>
           </div>
         </div>

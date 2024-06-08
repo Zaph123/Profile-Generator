@@ -26,10 +26,10 @@ import '../css/profilecard.css'
       (
         <>
           <div onClick={removeData} className="profile-link"><FaTrash /></div>
-          <div><Link to='/profiles/my-profile/profile-generator-card-edit' className="profile-link" ><FaEdit /></Link></div>
+          <div><Link to='/my-profile/profile-generator-card-edit' className="profile-link" ><FaEdit /></Link></div>
         </>
       )}
-    <div className="p-cont"><Link to='/profiles' className="profile-link" ><FaArrowLeft /></Link></div>
+    <div className="p-cont"><Link to='/' className="profile-link" ><FaArrowLeft /></Link></div>
     </div>
     {
        retreiveJSON ?
@@ -139,7 +139,7 @@ import '../css/profilecard.css'
         <div  className="empty-profile-page">
          <img src={image} alt="" />
          <p style={{textAlign: "center"}}>Oops No Profile Card Found</p>
-         <Link to='/profiles/profile-generator' className="empty-profile-btn">Generate New Card</Link>
+         <Link to='/profile-generator' className="empty-profile-btn">Generate New Card</Link>
         </div>
     )
    }

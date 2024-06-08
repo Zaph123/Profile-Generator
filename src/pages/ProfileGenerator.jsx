@@ -19,20 +19,20 @@ import { Link } from "react-router-dom";
 import useLocalStorage from "../components/useLocalStorage"
 
 
-const toggleBar = {
-  initial: {rotate: "45deg", y: "10px"},
-  initial1: {rotate: "-45deg", y: "-50%"},
-  exit: {rotate: "0"},
-  hide: {display: "none"},
-  show: {display: "block"},
-  transition: {
-      duration: .5, 
-      ease: "easeInOut", 
-  }
-}
+// const toggleBar = {
+//   initial: {rotate: "45deg", y: "10px"},
+//   initial1: {rotate: "-45deg", y: "-50%"},
+//   exit: {rotate: "0"},
+//   hide: {display: "none"},
+//   show: {display: "block"},
+//   transition: {
+//       duration: .5, 
+//       ease: "easeInOut", 
+//   }
+// }
 
-const ProfileGenerator = ({closemodal, lsname, lsemail}) => {
-    const modalClose = useContext(modalContext)
+const ProfileGenerator = () => {
+    // const modalClose = useContext(modalContext)
     const [handleError, setHandleError] = useState(false)  
     const [active, setActive] = useState("")
   
@@ -327,8 +327,8 @@ const ProfileGenerator = ({closemodal, lsname, lsemail}) => {
           <h1 className='poster-name'>My profile</h1>
           <div className={`menu-link ${active ? "active" : ""}`}>
             <FaTimes className="fa-times" onClick={closeMenu}/>
-          <motion.div whileTap={{scale: .95}}><Link to="/profiles" className='profile-link'>Back to Homepage</Link></motion.div>
-          <motion.div whileTap={{scale: .95}}><Link to="/profiles/my-profile" className='profile-link'>My Cards</Link></motion.div>
+          <motion.div whileTap={{scale: .95}}><Link to="/" className='profile-link'>Back to Homepage</Link></motion.div>
+          <motion.div whileTap={{scale: .95}}><Link to="/my-profile" className='profile-link'>My Cards</Link></motion.div>
           </div>
           <HamburgerMenu toggle={toggle} active={active}/>
         </div>
