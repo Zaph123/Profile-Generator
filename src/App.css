@@ -828,7 +828,9 @@
    .generate-card a {
       font-size: 14px;
    }
-
+   .modal-box .modal-btns-box .modal-btn{
+      width: 140px;
+   }
    .menu-bar{
       display: block;
       width: 27px;
