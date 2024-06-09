@@ -626,8 +626,8 @@
    max-width: 400px;
  }
   .input-bx label {
-   color: #242323;
-   font-size: 18px;
+   color: #4e4e4e;
+   font-size: 17px;
  }
 
   input {
@@ -638,7 +638,7 @@
    padding: 10px;
    background: #f2f2f2;
    outline: 2px solid #eee;
-   font-size: 15px;
+   font-size: 14px;
  }
  input:focus,  textarea:focus{
    outline: 2px solid #d7b6ff;
