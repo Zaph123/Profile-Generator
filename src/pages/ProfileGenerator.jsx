@@ -407,7 +407,7 @@ const ProfileGenerator = () => {
           className="emoji"><img src={success} alt="" /></motion.div>
           <p>Your Profile has been <b style={{color: "#5a338a"}}>Successfully</b> Generated</p>
           <div className="modal-btns-box">
-             <button className="modal-btn"><Link to="/profiles/my-profile" className="a">View</Link></button>
+             <button className="modal-btn"><Link to="/my-profile" className="a">View</Link></button>
              <button className="modal-btn" onClick={closeModal}>Close</button>
           </div>
         </div>
