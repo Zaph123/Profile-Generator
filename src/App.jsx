@@ -50,7 +50,7 @@ import SwiperComponent from './pages/Swiper';
 function App() {
   // return <RouterProvider router={router}/>
   return(
-  <Router basename='/Profile-Generator/'>
+  <Router basename='/'>
   <Header />
   <Routes>
     <Route path='/home' element={<Home />} >
