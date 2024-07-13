@@ -13,7 +13,8 @@ import profile11 from '../assets/profile-10.jpg'
 import success from '../assets/success-gif.gif'
 import landscape from '../assets/slide-5.jpg'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaHome} from 'react-icons/fa';
+import { FaCartArrowDown } from "react-icons/fa"
 import { modalContext } from "./SkillList";
 import { Link } from "react-router-dom";
 import useLocalStorage from "../components/useLocalStorage"
@@ -235,8 +236,7 @@ const ProfileGenerator = () => {
         <Menu />
         <div className="generator-cont">
           <div className='row1'>
-        
-        <form method="post" className="form">
+        <form method="post" className="form shadow-[0_0_15px_-5px_rgba(0,0,0,0.15)]">
         <div className="inner">
          <div className='input-bx'>
           <label htmlFor="name">Full Name:</label>
@@ -300,8 +300,8 @@ const ProfileGenerator = () => {
 
        </div>
         </form>
-        <div className="sample-profile-img">
-          <h2>Choose Avatar*</h2>
+        <div className="sample-profile-img shadow-[0_0_15px_-5px_rgba(0,0,0,0.15)]">
+          <h2 className="text-[17px] font-bold">Choose Avatar*</h2>
           <div className="sample-img-cont">
           {sampleImages.map(img => (<img key={img.id} style={{border: img.id === active ? "2px solid #8a67b4" : "none"}} src={img.src} alt="" onClick={() => getImage(img.src, img.id)}/>))}
           </div>
@@ -324,11 +324,15 @@ const ProfileGenerator = () => {
     }
     return(
       <div className="menu gen">
-          <h1 className='poster-name'>My profile</h1>
+          <h1 className='poster-name font-bold'>My profile</h1>
           <div className={`menu-link ${active ? "active" : ""}`}>
             <FaTimes className="fa-times" onClick={closeMenu}/>
-          <motion.div whileTap={{scale: .95}}><Link to="/" className='profile-link'>Back to Homepage</Link></motion.div>
-          <motion.div whileTap={{scale: .95}}><Link to="/my-profile" className='profile-link'>My Cards</Link></motion.div>
+          <motion.div whileTap={{scale: .95}}>
+            <Link to="/" className='profile-link flex gap-2'><FaHome />Home</Link>
+          </motion.div>
+          <motion.div whileTap={{scale: .95}}>
+            <Link to="/my-profile" className='profile-link flex gap-2'><FaCartArrowDown />Cards</Link>
+          </motion.div>
           </div>
           <HamburgerMenu toggle={toggle} active={active}/>
         </div>

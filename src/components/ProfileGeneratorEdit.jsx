@@ -14,7 +14,7 @@ import profile11 from '../assets/profile-10.jpg'
 import success from '../assets/success-gif.gif'
 import landscape from '../assets/slide-5.jpg'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaArrowLeft } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import useLocalStorage from "./useLocalStorage"
 
@@ -342,7 +342,11 @@ const ProfileGeneratorEdit = () => {
           <h1 className='poster-name'>My profile</h1>
           <div className={`menu-link ${active ? "active" : ""}`}>
             <FaTimes className="fa-times" onClick={closeMenu}/>
-          <motion.div whileTap={{scale: .95}}><Link to="/my-profile" className='profile-link'>Back</Link></motion.div>
+          <motion.div whileTap={{scale: .95}}><Link to="/my-profile" className='profile-link'>
+          <FaArrowLeft />
+          Back
+          </Link>
+          </motion.div>
           {/* <motion.div whileTap={{scale: .95}}><Link to="/profiles/my-profile" className='profile-link'>My Cards</Link></motion.div> */}
           </div>
           <HamburgerMenu toggle={toggle} active={active}/>
