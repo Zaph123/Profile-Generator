@@ -30,7 +30,7 @@
     left: 0;
     top: 0;
     height: 40px;
-    background: #ffffff;
+    background: #fff;
     z-index: 1000;
     border-radius: 0 0 10px 10px;
     border-bottom: 2px solid #eee;
@@ -206,8 +206,7 @@
    width: 100%;
    padding: 10px 15px;
    border-bottom: 2px solid #eee;
-   /* background: #fff;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.096); */
+   background: #f2f2f2;
  }
   
  .modal-contnr {
@@ -385,7 +384,7 @@
    color: #8a67b4;
 }
 .hero .generate-card:nth-child(2) .a {
-   color: #181717;
+   color: #8a67b4;
 }
  .hero .generate-card{
    height: 45px;
@@ -526,8 +525,7 @@
    display: flex;
    align-items: center;
    justify-content: flex-start;
-   gap: 20px;
-   padding-top: 50px;
+   padding-top: 40px;
    flex-direction: column;
    background: #fff;
 }
@@ -540,7 +538,8 @@
    justify-content: center;
    flex-direction: column;
    gap: 50px;
-   padding-bottom: 20px;
+   padding: 20px;
+   background: #f2f2f2;
    /* padding: 10px 10px 35px 10px; */
    /* box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); */
 }
@@ -637,11 +636,11 @@
    border: none;
    padding: 10px;
    background: #f2f2f2;
-   outline: 2px solid #eee;
+   outline: 1px solid #c5c5c5;
    font-size: 14px;
  }
  input:focus,  textarea:focus{
-   outline: 2px solid #d7b6ff;
+   outline: 1px solid #8a67b4;
    /* outline: 2px solid #ba8bf5; */
 }
 
@@ -656,7 +655,7 @@
    resize: none;
    font-size: 15px;
    background: #f2f2f2;
-   outline: 2px solid #eee;
+   outline: 1px solid #c5c5c5;
 }
  #generate-btn {
    width: 300px;
