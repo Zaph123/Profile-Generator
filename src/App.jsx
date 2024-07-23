@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-key */
 // import { useState } from 'react'
+
+
 import './App.css'
 import Home from './pages/Home';
 import Question from './pages/Question';
@@ -12,8 +14,11 @@ import ProfileGenerator from './pages/ProfileGenerator';
 import Viewport from './pages/Viewport';
 import ProfileGeneratorEdit from './components/ProfileGeneratorEdit';
 import ProfileCardHome from './components/ProfileCardHome';
+import Login from './pages/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SwiperComponent from './pages/Swiper';
+
+
 // import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
 //  const router = createBrowserRouter([
@@ -59,6 +64,7 @@ function App() {
     <Route path="/home/swiper" element={<SwiperComponent />} />
     </Route>
     <Route path='/' element={<Profiles />}>
+      <Route path='/login' element={<Login />}/>
       <Route index element={<SkillList />} />
       <Route path='/my-profile' element={<ProfileCard />}>
       <Route index element={<ProfileCardHome />} />

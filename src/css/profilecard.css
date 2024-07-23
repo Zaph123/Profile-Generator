@@ -77,7 +77,7 @@
  .profile .intro .about {
     padding: 10px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     justify-content: space-between;
  }
@@ -86,6 +86,7 @@
     align-items: flex-start;
     flex-flow: column;
     gap: 10px;
+    padding-top: 10px;
  }
  .profile .intro .about .col-2 {
    display: flex;

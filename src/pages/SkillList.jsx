@@ -100,7 +100,7 @@ import 'swiper/css/effect-coverflow';
       <modalContext.Provider value={displayModal}>
       <div className='swiper-inner'>
         <div className="menu">
-          <Link to="/my-profile" className='flex items-center justify-center w-[120px] px-[10px] py-[8px] text-white bg-[#824fc0] hover:bg-[#7a43bd] border-[#824fc0] border-[1px] rounded-[10px] shadow-[0_15px_15px_-5px_rgb(0,0,0,0.26)]'>Log in</Link>
+          <Link to="/login" className='flex items-center justify-center w-[120px] px-[10px] py-[8px] text-white bg-[#824fc0] hover:bg-[#7a43bd] border-[#824fc0] border-[1px] rounded-[10px] shadow-[0_10px_10px_-5px_rgb(0,0,0,0.16)]'>Log in</Link>
         </div>
         <div className="hero">
           <h1>Profile Card generator</h1>
@@ -210,7 +210,7 @@ import 'swiper/css/effect-coverflow';
             duration: .125,
             ease: "easeInOut"
           }}
-          className='generate-card shadow-[0_15px_15px_-5px_rgb(0,0,0,0.26)]'
+          className='generate-card shadow-[0_10px_10px_-5px_rgb(0,0,0,0.26)]'
           >
             {children}
           </motion.button>

@@ -623,7 +623,7 @@
    border: none;
    padding: 10px;
    background: #fff;
-   outline: 1px solid #c5c5c5;
+   outline: 1px solid #e2e2e2;
    font-size: 14px;
  }
  input:focus,  textarea:focus{
@@ -642,7 +642,7 @@
    resize: none;
    font-size: 15px;
    background: #fff;
-   outline: 1px solid #c5c5c5;
+   outline: 1px solid #e2e2e2;
 }
  #generate-btn {
    width: 300px;
